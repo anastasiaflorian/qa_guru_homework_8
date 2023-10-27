@@ -1,3 +1,7 @@
+from dataclasses import dataclass
+
+
+@dataclass
 class Product:
     """
     Класс продукта
@@ -7,11 +11,11 @@ class Product:
     description: str
     quantity: int
 
-    def __init__(self, name, price, description, quantity):
-        self.name = name
-        self.price = price
-        self.description = description
-        self.quantity = quantity
+    # def __init__(self, name, price, description, quantity):
+    #     self.name = name
+    #     self.price = price
+    #     self.description = description
+    #     self.quantity = quantity
 
     def check_quantity(self, quantity) -> bool:
         return self.quantity >= quantity
@@ -55,13 +59,16 @@ class Cart:
         Если remove_count не передан, то удаляется вся позиция
         Если remove_count больше, чем количество продуктов в позиции, то удаляется вся позиция
         """
-        if product in self.products or remove_count >= self.products[product]:
-            if remove_count is None:
-                del self.products[product]
-            elif len(self.products) <= remove_count:
-                self.products.clear()
-            else:
-                self.products[product] -= remove_count
+
+        if remove_count is None:
+            del self.products[product]
+            return
+
+        if not ((self.products[product] - remove_count) > 0):
+            del self.products[product]
+            return
+
+        self.products[product] -= remove_count
 
     def clear(self):
         self.products.clear()

@@ -52,15 +52,15 @@ class TestCart:
         cart.add_product(product, 1)
         assert cart.products[product] == 2
 
-    def test_remove_product(self, product: Product, cart):
+    def test_remove_product(self, product, cart):
         # добавить и удалить одинаковое количество продуктов
         cart.add_product(product, 10)
         cart.remove_product(product, 10)
         assert not cart.products
         # добавить и удалить разное количество продуктов
-        cart.add_product(product, 25)
-        cart.remove_product(product, 20)
-        assert cart.products[product] == 5
+        cart.add_product(product, 1000)
+        cart.remove_product(product, 100)
+        assert cart.products[product] == 900
 
     def test_clear(self, cart, product):
         cart.add_product(product, 50)
